@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 const Card = styled.div``;
 
+const CardImage = styled.img``;
+
 const CardName = styled.h1``;
 
 const CardText = styled.p``;
@@ -10,6 +12,7 @@ const CardText = styled.p``;
 const  CharacterCard = props => {
   return (
     <Card key={props.id}>
+      <CardImage alt='Rick and Morti Character' src ={props.image}></CardImage>
       <CardName>{props.name}</CardName>
       <CardText>Status: {props.status}</CardText>
       <CardText>Species: {props.species}</CardText>

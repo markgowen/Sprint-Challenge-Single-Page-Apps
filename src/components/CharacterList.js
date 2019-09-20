@@ -12,7 +12,7 @@ export default function CharacterList() {
     axios
       .get('https://rickandmortyapi.com/api/character/')
       .then(res => {
-        const char = res.data;
+        const char = res.data.results;
         console.log('Rick & Morti Characters', char)
         setChar(char);
         console.log(char)
@@ -23,17 +23,20 @@ export default function CharacterList() {
   }, []);
 
   return (
-    <section className="character-list">
-      {char.map(list => {
-        return (
-          <CharacterCard key={list.id}
-          name={list.name}
-          status={list.status}
-          species={list.species}
-          gender={list.gender}
-          />
-        )
+    <div className='Container'>
+      <div className='CardRow'>
+        {char.map(list => {
+          return (
+            <CharacterCard key={list.id}
+            image={list.image}
+            name={list.name}
+            status={list.status}
+            species={list.species}
+            gender={list.gender}
+            />
+          )
       })}
-    </section>
+      </div>
+    </div>
   );
 }
