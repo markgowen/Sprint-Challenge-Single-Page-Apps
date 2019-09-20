@@ -1,37 +1,43 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios'
-import CharacterCard from './CharacterCard'
+import React, { useState } from 'react';
+import { MDBCol, MDBFormInline, MDBIcon } from 'mdbreact';
 
-export default function SearchForm() {
-  // const [charName, setCharName] = useState([]);
+const SearchForm = (props) => {
+  console.log('props', props);
+  const [charName, setCharName] = useState({ name: ''})
+  const [searchedName, setSearchedName] = useState([]);
 
-  // useEffect(() => {
-  //   // TODO: Add API Request here - must run in `useEffect`
-  //   //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
-  //   axios
-  //     .get('https://rickandmortyapi.com/api/character/')
-  //     .then(res => {
-  //       const charName = res.data.results;
-  //       console.log('Rick & Morti Characters', charName)
-  //       setCharName(charName);
-  //       console.log(charName)
-  //     })
-  //     .catch(error => {
-  //       console.log('No characters returned', error);
-  //     })
-  // }, []);
+  const handleChanges = e => {
+    console.log(charName);
+    setCharName({ ...charName, [e.target.name]: e.target.value});
+  };
 
-  // return (
-  //   <div className='Container'>
-  //     <div className='CardRow'>
-  //       {charName.filter(list => {
-  //         return (
-  //           <CharacterCard key={list.id}
-  //           name={list.name}
-  //           />
-  //         )
-  //     })}
-  //     </div>
-  //   </div>
-  // );
-}
+  const returnSearchedCharName = name => {
+    const searchedCharName = {
+      id: ([]),
+      name: name.name,
+    };
+    setSearchedName([...searchedName, searchedCharName]);
+  };
+
+  const submitForm = e => {
+    e.preventDefault();
+    props.returnSearchedCharName(charName);
+    setCharName({ name: ''});
+  };
+
+  return (
+    <MDBCol md="6">
+      <MDBFormInline className="md-form">
+        <MDBIcon icon="search" />
+        <input
+          className="form-control form-control-sm ml-3 w-75"
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+        />
+      </MDBFormInline>
+    </MDBCol>
+  );
+};
+
+export default SearchForm;
